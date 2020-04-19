@@ -48,5 +48,20 @@ int main() {
     }
     cout << endl;
 
+
+    double *d = new double[10];
+    for (int j = 0; j < 10; ++j) {
+        d[j] = j;
+    }
+    Stack s4 (d, 10);
+
+    len = s4.sizeStack();
+    cout << "s4: ";
+    for (int i = 0; i < len; ++i) {
+        cout << s4.topStack() << "  ";
+        s4.popStack();
+    }
+    cout << endl;
+
     return 0;
 }
