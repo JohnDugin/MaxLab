@@ -16,8 +16,7 @@ enum class StackContainer {
 // декларация класса с реализацией
 class StackImplementation;
 
-class Stack
-{
+class Stack{
 public:
     // Большая пятерка
     Stack(StackContainer container = StackContainer::Vector);
