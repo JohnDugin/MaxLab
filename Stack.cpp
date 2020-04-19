@@ -44,7 +44,29 @@ Stack::Stack(const ValueType *valueArray, const size_t arraySize, StackContainer
 
 
 Stack::Stack(const Stack &copyStack) {
-    *_pimpl = *(copyStack._pimpl);
+    int copyStackSize = copyStack.sizeStack();
+    switch (copyStack._containerType) {
+        case StackContainer::List: {
+            _pimpl = new OneListStack();    // конкретизируйте под ваши конструкторы, если надо
+            break;
+        }
+        case StackContainer::Vector: {
+            _pimpl = new VectorStack();    // конкретизируйте под ваши конструкторы, если надо
+            break;
+        }
+        default:
+            throw std::runtime_error("Неизвестный тип контейнера");
+    }
+    ValueType *array = new ValueType[copyStackSize];
+    for (int i = copyStackSize - 1; i >= 0; i--) {
+        array[i] = copyStack._pimpl->topStack();
+        copyStack._pimpl->popStack();
+    }
+    for (int i = 0; i < copyStackSize; i++) {
+        _pimpl->pushStack(array[i]);
+        copyStack._pimpl->pushStack(array[i]);
+    }
+    delete[] array;
 }
 
 
